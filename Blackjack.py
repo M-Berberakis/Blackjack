@@ -7,7 +7,7 @@ def pick_card():
     value_card = deck[rand_card]
     print(f"{rand_card} ({value_card})")
 
-#hello there!
+#hello there! this is another test
 
 
 
