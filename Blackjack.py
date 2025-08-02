@@ -7,7 +7,11 @@ def pick_card():
     value_card = deck[rand_card]
     print(f"{rand_card} ({value_card})")
 
+<<<<<<< HEAD
 #hello there! this is another test
+=======
+
+>>>>>>> aec64b76a07298e7ee285d2a8098f3928d25fbc7
 
 
 
