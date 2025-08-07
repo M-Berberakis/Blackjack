@@ -16,12 +16,17 @@ def player():
         if p_input == 'Y':
             cards = pick_card()
             hand.append(cards)
-            #print(cards)
+            #print(hand)
+            for card, c_value in hand:
+                print(f"({c_value})")
+
+            total += c_value
+            print(total)
             
 
-            # if check_bust(total): #We check whether the player has gone bust, while they're still playing
-            #     print(f"{total} You've gone bust!")
-            #     break
+            if check_bust(total): #We check whether the player has gone bust, while they're still playing
+                print(f"(({total})) You've gone bust!")
+                break
 
         elif p_input == 'N':
             print(f"Your total is: {total}")
@@ -32,8 +37,8 @@ def player():
 
 
 
-#def check_bust(total):
-    #return total >= 22
+def check_bust(total):
+    return total >= 22
     
             
 
