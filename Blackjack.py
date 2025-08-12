@@ -25,6 +25,7 @@ def player():
 
             if check_blackjack(hand) == True:
                 print("You've got Blackjack!")
+                break
             
 
             if check_bust(total): #We check whether the player has gone bust, while they're still playing
