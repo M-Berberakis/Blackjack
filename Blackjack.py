@@ -18,7 +18,7 @@ def player():
             cards = pick_card()
             hand.append(cards)
             for card, c_value in hand:
-                print(f"({c_value})")
+                print(f"({card})")
 
             total += c_value
             print(total)
@@ -54,9 +54,41 @@ def check_blackjack(hand):
     else:
         return False
 
+def dealerTurn():
+    dealer_hand=[]
+    dealer_total = 0
+
+    while dealer_total <= 17:
+        Dcards = pick_card()
+        dealer_hand.append(Dcards)
+
+
+        for dCard, dc_value in dealer_hand:
+            print(f"({dCard})")
+        
+        dealer_total += dc_value
+        print(f"(({dealer_total}))")
+
+        if check_bust(dealer_total):
+            print(f"({dealer_total}) You've gone bust!")
+
+        if check_blackjack == True:
+            printf(f"{dealer_total} You've got Blackjack!")
+            break
+
+        
+    
+
+
 
     
             
+            
+        
 
+
+    
+            
+dealer = dealerTurn()
 play = player()
 
