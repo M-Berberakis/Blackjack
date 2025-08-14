@@ -16,37 +16,41 @@ def player():
         if p_input == 'Y':
             cards = pick_card()
             hand.append(cards)
-            for card, c_value in hand:
-                print(f"({card})")
+            
+            total += cards[1]
 
-            total += c_value
-            print(total)
-
-            if check_blackjack(hand) == True:
-                print("You've got Blackjack!")
-                break
+            print(f"Player drew: {cards[0]}")
+            print(f"Player total is: {total}")
             
 
-            if check_bust(total): #We check whether the player has gone bust, while they're still playing
-                print(f"(({total})) You've gone bust!")
+        if p_input == 'N':
+            if total == 0:
                 break
-            
-            dealer_total = dealerTurn()
-            if check_push(dealer_total, total):
-                print("The bets are pushed!")
+            else:
+                print(f"Player total is: {total}")
                 break
 
-        elif p_input == 'N':
-            print(f"Your total is: {total}")
-            total += c_value
+        
+        if check_bust(total) == True:
+            print(f" {total} Player has gone bust!")
             break
-        else:
-            print("Please pick y or n")
+        
+        if check_blackjack(hand) == True:
+            print(f"{total} The player has Blackjack!")
+            break
+
+
+    return total
 
 
 
 def check_bust(total):
-    return total >= 22
+
+    if total >= 22:
+        return True
+    else:
+        return False
+
 
 def check_blackjack(hand):
 
@@ -59,34 +63,43 @@ def check_blackjack(hand):
         return False
     
 def check_push(dealer_total, player_total):
-    if dealer_total == player_total:
-        return True    
 
-def dealerTurn():
+    if not check_bust(dealer_total) and not check_bust(player_total):
+        return dealer_total == player_total
+    else:
+        return False
+
+
+
+def dealerTurn(player_total):
     dealer_hand=[]
     dealer_total = 0
 
-    while dealer_total <= 17:
+    print("DEALER'S TURN: ")
+
+    while dealer_total < 17:
         Dcards = pick_card()
         dealer_hand.append(Dcards)
 
+        dealer_total += Dcards[1]
 
-        for dCard, dc_value in dealer_hand:
-            print(f"({dCard})")
+        print(f"The Dealer drew: {Dcards[0]})")
+        print(f"Dealer total: (({dealer_total}))")
         
-        dealer_total += dc_value
-        print(f"(({dealer_total}))")
 
-        if check_bust(dealer_total):
-            print(f"({dealer_total}) You've gone bust!")
+    if check_bust(dealer_total):
+            print(f"({dealer_total}) The dealer has gone bust!")
 
-        if check_blackjack == True:
-            print(f"{dealer_total} You've got Blackjack!")
-            break
-    return dealer_total
+    if check_blackjack(dealer_hand):
+        print(f"{dealer_total} The Dealer has Blackjack!")
 
-dealer = dealerTurn()    
-play = player()           
+    if check_push(dealer_total, player_total):
+        print("The bet is pushed")
+ 
+
+player_total = player() 
+dealer = dealerTurn(player_total)
+          
 
 
 
