@@ -9,7 +9,6 @@ def pick_card():
 def player():
     hand = []
     total = 0
-    blackjack = check_blackjack(hand)
     num = 3
     while num == 3:
         p_input=input("Would you like to play? (Y)/(N): ")
@@ -30,6 +29,11 @@ def player():
 
             if check_bust(total): #We check whether the player has gone bust, while they're still playing
                 print(f"(({total})) You've gone bust!")
+                break
+            
+            dealer_total = dealerTurn()
+            if check_push(dealer_total, total):
+                print("The bets are pushed!")
                 break
 
         elif p_input == 'N':
@@ -53,6 +57,10 @@ def check_blackjack(hand):
         return True
     else:
         return False
+    
+def check_push(dealer_total, player_total):
+    if dealer_total == player_total:
+        return True    
 
 def dealerTurn():
     dealer_hand=[]
@@ -73,22 +81,12 @@ def dealerTurn():
             print(f"({dealer_total}) You've gone bust!")
 
         if check_blackjack == True:
-            printf(f"{dealer_total} You've got Blackjack!")
+            print(f"{dealer_total} You've got Blackjack!")
             break
+    return dealer_total
 
-        
-    
-
-
-
-    
-            
-            
-        
+dealer = dealerTurn()    
+play = player()           
 
 
-    
-            
-dealer = dealerTurn()
-play = player()
 
