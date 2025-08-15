@@ -69,8 +69,15 @@ def check_push(dealer_total, player_total):
         return dealer_total == player_total
     else:
         return False
+    
 
+def check_winner(dealer_total, player_total):
 
+    if not check_bust(dealer_total) == True and dealer_total > player_total:
+        print(f"The Player has lost with {player_total}, the Dealer wins with: {dealer_total}")
+
+    elif not check_bust(player_total) == True and player_total > dealer_total:
+        print(f"The Dealer has lost with {dealer_total} The Player wins with: {player_total} ")
 
 def dealerTurn(player_total):
     dealer_hand=[]
@@ -100,6 +107,10 @@ def dealerTurn(player_total):
 
     if check_push(dealer_total, player_total):
         print("The bet is pushed")
+
+    winner = check_winner(dealer_total, player_total)
+    print(winner)
+
  
 
 player_total = player() 
