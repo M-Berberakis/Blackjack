@@ -32,8 +32,7 @@ def player():
                 break
 
         
-        if check_bust(total) == True:
-            print(f" {total} Player has gone bust!")
+        if check_bust(total):
             break
         
         if check_blackjack(hand) == True:
@@ -71,13 +70,24 @@ def check_push(dealer_total, player_total):
         return False
     
 
-def check_winner(dealer_total, player_total):
+def check_winner(dealer_total, player_total): 
 
     if not check_bust(dealer_total) == True and dealer_total > player_total:
         print(f"The Player has lost with {player_total}, the Dealer wins with: {dealer_total}")
 
     elif not check_bust(player_total) == True and player_total > dealer_total:
         print(f"The Dealer has lost with {dealer_total} The Player wins with: {player_total} ")
+
+    if check_bust(dealer_total) == True and check_bust(player_total) == False:
+        print("The Dealer has gone bust, the Player wins ")
+
+    elif check_bust(player_total) == True and check_bust(dealer_total) == False:
+        print("The Player has gone bust, the Dealer wins")
+    
+    elif check_bust(player_total) == True and check_bust(dealer_total) == True:
+        print("The Player and the Dealer have gone bust")
+
+
 
 def dealerTurn(player_total):
     dealer_hand=[]
@@ -98,9 +108,6 @@ def dealerTurn(player_total):
         print(f"The Dealer drew: {Dcards[0]})")
         print(f"Dealer total: (({dealer_total}))")
         
-
-    if check_bust(dealer_total):
-            print(f"({dealer_total}) The dealer has gone bust!")
 
     if check_blackjack(dealer_hand):
         print(f"{dealer_total} The Dealer has Blackjack!")
