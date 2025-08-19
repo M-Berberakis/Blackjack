@@ -34,13 +34,8 @@ def player():
         
         if check_bust(total):
             break
-        
-        if check_blackjack(hand) == True:
-            print(f"{total} The player has Blackjack!")
-            break
 
-
-    return total
+    return hand, total
 
 
 
@@ -70,26 +65,39 @@ def check_push(dealer_total, player_total):
         return False
     
 
-def check_winner(dealer_total, player_total): 
+def check_winner(dealer_total, player_total, dealer_hand, player_hand):
 
-    if not check_bust(dealer_total) == True and dealer_total > player_total:
+    if dealer_total == 21 and check_blackjack(dealer_hand) == True: #This works because the dealer_turn function can see the dealer hand. ADD THESE AS THE MAIN IF STATEMENT
+        print("The Dealer has Blackjack!")
+
+    elif not check_bust(dealer_total) == True and dealer_total > player_total:
         print(f"The Player has lost with {player_total}, the Dealer wins with: {dealer_total}")
+
+    if player_total == 21 and check_blackjack(player_hand) == True: #This does not work because the dealer_turn function cannot see the player's hand. NEED TO FIX
+        print("The Player has Blackjack!")
 
     elif not check_bust(player_total) == True and player_total > dealer_total:
         print(f"The Dealer has lost with {dealer_total} The Player wins with: {player_total} ")
+
+    if player_total == 21 and check_blackjack(player_hand) == True and dealer_total == 21 and check_blackjack(dealer_hand) == True:
+        print("Both the Player and the Dealer have Blackjack, the bet is pushed!")
+
+    if check_push(dealer_total, player_total) == True:
+        print(f"The Dealer has: ({dealer_total}) and the Player has: ({player_total}), the bet is pushed!")
 
     if check_bust(dealer_total) == True and check_bust(player_total) == False:
         print("The Dealer has gone bust, the Player wins ")
 
     elif check_bust(player_total) == True and check_bust(dealer_total) == False:
         print("The Player has gone bust, the Dealer wins")
+
     
-    elif check_bust(player_total) == True and check_bust(dealer_total) == True:
-        print("The Player and the Dealer have gone bust")
+
+    
+    
 
 
-
-def dealerTurn(player_total):
+def dealerTurn(player_total, player_hand):
     dealer_hand=[]
     dealer_total = 0
 
@@ -109,19 +117,17 @@ def dealerTurn(player_total):
         print(f"Dealer total: (({dealer_total}))")
         
 
-    if check_blackjack(dealer_hand):
-        print(f"{dealer_total} The Dealer has Blackjack!")
+    # if check_push(dealer_total, player_total):
+    #     print("The bet is pushed")
 
-    if check_push(dealer_total, player_total):
-        print("The bet is pushed")
 
-    winner = check_winner(dealer_total, player_total)
+    winner = check_winner(dealer_total, player_total, dealer_hand, player_hand)
     print(winner)
 
  
 
-player_total = player() 
-dealer = dealerTurn(player_total)
+player_hand,player_total = player() 
+dealer = dealerTurn(player_total, player_hand)
           
 
 
